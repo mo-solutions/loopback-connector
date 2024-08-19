@@ -1,3 +1,32 @@
+# Modification
+
+Added extra logic for select (left join and right outer join).
+
+    {
+        "where": {
+            "foo": "bar"
+        },
+        "leftJoin": {
+            "relationName": {
+                "relatedModelPropName": "value"
+            }
+        }
+    }
+
+SQL generated will look somthing like this:
+
+    SELECT 
+        Model."id",
+        Model."foo"
+    FROM
+        "public"."model" AS Model
+    LEFT JOIN
+        "public"."relatedModel" AS RelatedModel ON RelatedModel."dependsOfRelationTypeAndForeignKey" = Model."dependsOfRelationTypeAndForeignKey"
+    WHERE
+        Model."foo" = "bar" AND RelatedModel."relatedModelPropName" = "value"
+    GROUP BY
+        Model."id"
+
 # LoopBack Connector
 
 [![CI](https://github.com/loopbackio/loopback-connector/actions/workflows/continuous-integration.yaml/badge.svg)](https://github.com/loopbackio/loopback-connector/actions/workflows/continuous-integration.yaml)
